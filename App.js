@@ -26,6 +26,8 @@ export default class App extends Component<Props> {
         },{
             value: 'XL/L/2SM',
         }];
+
+        const {layout} = this.state;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
                 <View style={{margin: 16}}>
@@ -33,11 +35,11 @@ export default class App extends Component<Props> {
                         itemCount={5}
                         label='Select Layout Here'
                         data={data}
-                        value={this.state.layout}
+                        value={layout}
                         onChangeText={layout=>this.setState({layout})}
                     />
                 </View>
-                <LayoutGenerator layout={this.state.layout}/>
+                <LayoutGenerator layout={layout}/>
 
             </SafeAreaView>
         );

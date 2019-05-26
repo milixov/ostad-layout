@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 
@@ -43,15 +44,16 @@ const layoutData = [{
     }
 ];
 
-class LayoutGenerator extends Component {
+type Props = {layout: 'XL' | '2XL' | '4L' | 'XL/2L' | 'XL/L/2SM'}
+class LayoutGenerator extends Component<Props> {
 
     static randomColor() {
         return '#'+Math.floor(Math.random()*16777215).toString(16);
     }
 
-    static style(flex) {
+    static style(flex, column) {
         return {flex,
-            backgroundColor: LayoutGenerator.randomColor(),
+            backgroundColor: column !== null ? LayoutGenerator.randomColor() : null,
             justifyContent: 'center',
             alignItems: 'center'}
     }
@@ -61,19 +63,24 @@ class LayoutGenerator extends Component {
         let mLayout = layoutData.find(item => item.title === layout);
 
         return (
-            <View style={{flex: 1, flexDirection: 'column', marginTop: 20}}>
+            <View
+                style={{flex: 1, flexDirection: 'column', marginTop: 20}}>
                 {mLayout ? mLayout.structure.map((item, index) =>
-                    <View key={"row_" + index} style={LayoutGenerator.style(item.flex)}>
+                    <View
+                        key={"row_" + index}
+                        style={LayoutGenerator.style(item.flex, item.column)}>
                         {item.column !== null ?
                             item.column.length > 0 ?
                                 <View style={{flex: 1, flexDirection: 'row'}}>
                                     {item.column.map((col, colIndex) =>
-                                        <View key={"col_" + colIndex} style={LayoutGenerator.style(item.flex)}>
+                                        <View
+                                            key={"col_" + colIndex}
+                                            style={LayoutGenerator.style(item.flex)}>
                                             <Text>Plot</Text>
                                         </View>)}
-                                </View> :
-                                <Text>Plot</Text> :
-                            null}
+                                </View>
+                                : <Text>Plot</Text>
+                            : null}
                     </View>
                 ) : null}
             </View>
