@@ -50,7 +50,10 @@ class LayoutGenerator extends Component {
     }
 
     static style(flex) {
-        return {flex, backgroundColor: LayoutGenerator.randomColor(), justifyContent: 'center', alignItems: 'center'}
+        return {flex,
+            backgroundColor: LayoutGenerator.randomColor(),
+            justifyContent: 'center',
+            alignItems: 'center'}
     }
 
     render() {

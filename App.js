@@ -7,15 +7,38 @@
  */
 
 import React, {Component} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import LayoutGenerator from './src/component/LayoutGenerator';
+import { Dropdown } from 'react-native-material-dropdown';
 
 type Props = {};
 export default class App extends Component<Props> {
+    state ={layout: "XL"};
     render() {
+        let data = [{
+            value: 'XL',
+        }, {
+            value: '2XL',
+        },{
+            value: '4L',
+        },{
+            value: 'XL/2L',
+        },{
+            value: 'XL/L/2SM',
+        }];
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-                <LayoutGenerator layout="XL/L/2SM"/>
+                <View style={{margin: 16}}>
+                    <Dropdown
+                        itemCount={5}
+                        label='Select Layout Here'
+                        data={data}
+                        value={this.state.layout}
+                        onChangeText={layout=>this.setState({layout})}
+                    />
+                </View>
+                <LayoutGenerator layout={this.state.layout}/>
+
             </SafeAreaView>
         );
     }
