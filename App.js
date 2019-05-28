@@ -13,24 +13,26 @@ import { Dropdown } from 'react-native-material-dropdown';
 
 type Props = {};
 export default class App extends Component<Props> {
-    state ={layout: "XL"};
+    state ={layout: "XL", height: 0};
     render() {
         let data = [{
             value: 'XL',
         }, {
             value: '2XL',
         },{
-            value: '4L',
+            value: 'L/4SM/XL',
         },{
             value: 'XL/2L',
         },{
             value: 'XL/L/2SM',
         }];
 
-        const {layout} = this.state;
+        const {layout, height} = this.state;
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-                <View style={{margin: 16}}>
+            <SafeAreaView onLayout={(event) => {
+                this.setState({height: event.nativeEvent.layout.height})
+            }} style={{ flex: 1, backgroundColor: "white" }}>
+                <View>
                     <Dropdown
                         itemCount={5}
                         label='Select Layout Here'
@@ -39,8 +41,7 @@ export default class App extends Component<Props> {
                         onChangeText={layout=>this.setState({layout})}
                     />
                 </View>
-                <LayoutGenerator layout={layout}/>
-
+                <LayoutGenerator layout={layout} height={height}/>
             </SafeAreaView>
         );
     }
