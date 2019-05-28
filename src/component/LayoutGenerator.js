@@ -32,7 +32,7 @@ class LayoutGenerator extends Component {
                     <View key={`view_${index}`} style={LayoutGenerator.style(item)}>
                         <Text>Slot</Text>
                     </View> : Array.isArray(item) && item.length > 0 ?
-                        <View style={{flex: 1, flexDirection: 'row'}}>
+                        <View key={`view_${index}`} style={{flex: 1, flexDirection: 'row'}}>
                             {item.map(col =>
                                 <View key={`col_${col.index}`}
                                       style={[LayoutGenerator.style(col.size), {flex: 1}]}>
